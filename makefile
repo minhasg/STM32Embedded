@@ -5,7 +5,7 @@ OC      = arm-none-eabi-objcopy
 OD      = arm-none-eabi-objdump
 OS		= arm-none-eabi-size
 
-LDSCRIPT = src/linkerScript.ld
+LDSCRIPT = src/ls.ld
 
 LDLIBS  = -lgcc
 LDFLAGS = -T$(LDSCRIPT) -nostartfiles -nostdlib --specs=nosys.specs -Wall
@@ -30,11 +30,14 @@ build: app.elf
 	$(OC) $(OUTPATH)/app.elf -O srec $(OUTPATH)/app.mot
 	$(OS) $(OUTPATH)/app.elf
 
-app.elf: startup.o main.o
+app.elf: startup.o main.o vtable.o
 	$(CC) $(OUTPATH)/*.o -o $(OUTPATH)/app.elf $(ARCH) $(LDFLAGS) $(LDLIBS)
 
 startup.o:
 	$(AS) $(ASFLAGS) $(SRCPATH)/startup.s -o $(OUTPATH)/startup.o $(ARCH)
+
+vtable.o:
+	$(AS) $(ASFLAGS) $(SRCPATH)/vtable.s -o $(OUTPATH)/vtable.o $(ARCH)
 
 main.o:
 	$(CC) $(CFLAGS) $(SRCPATH)/main.c -o $(OUTPATH)/main.o $(ARCH)

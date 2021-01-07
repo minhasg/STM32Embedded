@@ -1,6 +1,3 @@
-.global _start
-.global _end
-
 .syntax unified
 .thumb
 .cpu cortex-m4
@@ -28,6 +25,7 @@ data1: .word 0x12345678
 *   Once the boot code sequence is finished we can branch to main and continue  *
 *   with the rest of the program in C rather than assembly.                     *
 ********************************************************************************/
+.global _start
 .type _start, %function
 _start:
     
@@ -67,6 +65,7 @@ resetBss:
     returnResetBss:
         mov pc, lr      // Return
 
+.global _end
 _end:
     b _end
 

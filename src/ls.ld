@@ -15,6 +15,13 @@ MEMORY
 
 SECTIONS
 {
+    .vtable :
+    {
+        . = ALIGN(4);
+        KEEP( bin/vtable.o(.vtable) );
+        . = ALIGN(4);
+    } >FLASH
+    
     .boot :
     {
         . = ALIGN(4);
