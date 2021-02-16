@@ -1,10 +1,10 @@
-ENTRY(_start)
+ENTRY(_vtable)
 
 /* End of the stack is the end of the RAM */
 _estack = 0x20030000;
 
-/* Minimum memory needed for dynamic memory (stack/heap) */
-/* Allocating 32kB to this purpose                       */
+/* Minimum memory needed for dynamic memory (stack/heap)  */
+/* Allocating 32kB to this purpose                        */
 _dynamicMemorySpace = 0x8000;
 
 MEMORY
@@ -12,6 +12,10 @@ MEMORY
     FLASH(rx)   : ORIGIN = 0x08000000, LENGTH = 1M
     RAM(rwx)    : ORIGIN = 0x20000000, LENGTH = 192K
 }
+
+
+/* Need to set the memory map such that the vtable is the */
+/* first thing that is written to memory.                 */
 
 SECTIONS
 {
@@ -69,6 +73,6 @@ SECTIONS
         . += _dynamicMemorySpace;
         . = ALIGN(4);
         _edynmem = . ;
-    }
+    } >RAM
 
 }

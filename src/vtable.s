@@ -1,6 +1,7 @@
 .thumb
 .syntax unified
 .section .vtable
+.global _vtable
 _vtable:
     b _start                // 0x00000000 - Reset address
     ldr pc, _irq_reset      // 0x00000004 - Reset IRQ

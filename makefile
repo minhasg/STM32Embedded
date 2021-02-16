@@ -30,7 +30,7 @@ build: app.elf
 	$(OC) $(OUTPATH)/app.elf -O srec $(OUTPATH)/app.mot
 	$(OS) $(OUTPATH)/app.elf
 
-app.elf: startup.o main.o vtable.o
+app.elf: vtable.o startup.o main.o
 	$(CC) $(OUTPATH)/*.o -o $(OUTPATH)/app.elf $(ARCH) $(LDFLAGS) $(LDLIBS)
 
 startup.o:
